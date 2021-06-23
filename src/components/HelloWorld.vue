@@ -1,12 +1,12 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <Confirm text="你点一下试试" @message="getMessage"></Confirm>
+    <Confirm text="你点一下试试" @message="getMessage()"></Confirm>
   </div>
 </template>
 
 <script>
-  import Confirm from "./sub/Confirm.vue"
+  import Confirm from "./common/Confirm.vue"
 
   export default {
     name: 'HelloWorld',

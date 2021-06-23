@@ -1,6 +1,6 @@
 <template>
   <div class="confirm-button">
-    <el-button @click="getButtonClick">{{text || '确认'}}</el-button>
+    <el-button @click="getButtonClick()">{{text || '确认'}}</el-button>
   </div>
 </template>
 
