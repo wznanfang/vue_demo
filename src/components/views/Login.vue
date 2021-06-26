@@ -79,7 +79,7 @@
                 })
                 //将登录用户信息存入session
                 sessionStorage.setItem("userInfo", JSON.stringify(result.data.result));
-                console.log(JSON.parse(sessionStorage.getItem("userInfo")))
+                // console.log(JSON.parse(sessionStorage.getItem("userInfo")))
               } else {
                 this.$message({
                   message: result.data.message,
