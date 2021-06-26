@@ -13,7 +13,7 @@ module.exports = {
     // proxyTable: {},
     proxyTable: {
       '/api':{
-        target: 'http://127.0.0.1:9999',  // 后台api
+        target: 'http://127.0.0.1:8888',  // 后台api
         changeOrigin: true,  //是否跨域
         pathRewrite: {
           '^/api': ''

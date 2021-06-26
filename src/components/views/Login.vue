@@ -3,17 +3,18 @@
     <h2 style="padding-top: 1rem;">南风落尽</h2>
     <el-form>
       <el-input class="username" placeholder="请输入账号" v-model="username" clearable prefix-icon="el-icon-user-solid"
-        value="superAdmin" ref="username">
+        ref="username">
         <template slot="prepend">账号：</template>
       </el-input>
       <el-input class="password" placeholder="请输入密码" v-model="password" show-password prefix-icon="el-icon-lock"
         ref="password">
         <template slot="prepend">密码：</template>
       </el-input>
-      <el-input class="vertifyCode" placeholder="请输入验证码" v-model="vertifyCode" prefix-icon="el-icon-key" ref="vertifyCode">
+      <el-input class="vertifyCode" placeholder="请输入验证码" v-model="vertifyCode" prefix-icon="el-icon-key"
+        ref="vertifyCode">
         <template slot="prepend">验证码：</template>
         <template slot="append">
-          <img style="height: 2rem; width: 6rem;padding-top: 0.1875rem;" :src="changeImage" @click="getVertifyCode()"
+          <img style="height: 2rem; width: 6rem; padding-top: 0.1875rem;" :src="changeImage" @click="getVertifyCode()"
             title="看不清？点击切换" />
         </template>
       </el-input>
@@ -67,7 +68,6 @@
               password: this.$md5(this.password)
             })
             .then(result => {
-              console.log(result.data)
               if (result.data.code === 0) {
                 this.$message({
                   message: '登录成功！',
@@ -77,6 +77,9 @@
                 this.$router.push({
                   path: '/Home'
                 })
+                //将登录用户信息存入session
+                sessionStorage.setItem("userInfo", JSON.stringify(result.data.result));
+                console.log(JSON.parse(sessionStorage.getItem("userInfo")))
               } else {
                 this.$message({
                   message: result.data.message,
@@ -118,21 +121,13 @@
 </script>
 
 <style>
-  body {
-    width: 120rem;
-    height: 55rem;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    background-image: url(../../assets/login.jpg);
-  }
 
   .login {
     width: 30.75rem;
     height: 22.5rem;
     background-color: #ffffff;
-    /* opacity: 0.8; //背景透明度 */
-    border-radius: 0.3125rem;
+    opacity: 1;
+    border-radius: 0.5rem;
     margin: 0 auto;
     margin-right: 18.75rem;
     position: relative;

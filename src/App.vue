@@ -14,6 +14,12 @@ export default {
   body{
     margin: 0rem;
     padding: 0rem;
+    width: 120rem;
+    height: 55rem;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: #e1e1e1;
   }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
