@@ -2,7 +2,8 @@
   <div class="adminList">
     <Header></Header>
     <Aside></Aside>
-    <Main v-bind:fData="AdminData"></Main>
+    <!-- <Main v-bind:fData="AdminData"></Main> -->
+    <Main v-for="(item,index) in AdminData" v-bind:key="index"></Main>
   </div>
 
 </template>
@@ -43,7 +44,7 @@
             'Authorization': 'bearer ' + access_token
           }
         }).then(result => {
-          this.AdminData = result.data.result
+          this.AdminData = result.data.result.content
           console.log(this.AdminData)
         }).catch(err => {
           console.log(err)
