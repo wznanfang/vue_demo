@@ -2,10 +2,6 @@
   <div class="adminList">
     <Header></Header>
     <Aside></Aside>
-    <!-- <p v-for="admin in AdminData" v-bind:fData="admin">{{ admin.id }}{{admin.username}}</p> -->
-    <!-- <Main v-for="admin in AdminData" v-bind:fData="admin"></Main> -->
-
-
     <template>
       <el-table ref="multipleTable" tooltip-effect="dark" @selection-change="handleSelectionChange" stripe border
         :data="AdminData" style="width: 100%">
@@ -37,7 +33,7 @@
   import Header from "../common/Header.vue";
   import Aside from "../common/Aside.vue";
   import Main from "../common/Main.vue";
-  import {getLocalTime} from '../util/Date.js'
+  import {getLocalTime} from '../../util/DateUtil.js'
 
   export default {
     name: 'AdminList',
