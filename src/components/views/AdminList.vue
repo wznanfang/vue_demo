@@ -2,14 +2,9 @@
   <div class="adminList">
     <Header></Header>
     <Aside></Aside>
-    <!-- <p v-for="admin in AdminData" v-bind:fData="admin">{{ admin.id }}{{admin.username}}</p> -->
-    <!-- <Main v-for="admin in AdminData" v-bind:fData="admin"></Main> -->
-
-
-    <template>
-      <el-table ref="multipleTable" tooltip-effect="dark" @selection-change="handleSelectionChange" stripe border
-        :data="AdminData" style="width: 100%">
-        <el-table-column type="selection" width="55"> </el-table-column>
+    <el-main>
+      <el-table ref="multipleTable" tooltip-effect="dark" @selection-change="handleSelectionChange" stripe border :data="AdminData">
+        <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="id" label="编号" width="180"></el-table-column>
         <el-table-column prop="username" label="姓名" width="180"></el-table-column>
         <el-table-column prop="phone" label="手机号" width="180"></el-table-column>
@@ -21,80 +16,107 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            <el-button size="mini" type="danger" @click="handleFreeze(scope.$index, scope.row.id)">冻结</el-button>
           </template>
         </el-table-column>
       </el-table>
-    </template>
-
-
+    </el-main>
 
   </div>
-
 </template>
 
 <script>
-  import Header from "../common/Header.vue";
-  import Aside from "../common/Aside.vue";
-  import Main from "../common/Main.vue";
-  import {getLocalTime} from '../util/Date.js'
+import Header from "../common/Header.vue";
+import Aside from "../common/Aside.vue";
+import Main from "../common/Main.vue";
+import {getLocalTime} from '../util/Date.js'
 
-  export default {
-    name: 'AdminList',
+export default {
+  name: 'AdminList',
 
-    components: {
-      Header,
-      Aside,
-      Main,
-    },
+  components: {
+    Header,
+    Aside,
+    Main,
+  },
 
-    data() {
-      return {
-        AdminData: [],
-      }
-    },
+  data() {
+    return {
+      AdminData: [],
+    }
+  },
 
-    // 页面初始化从后端加载数据
-    created() {
-      this.adminInfo()
-    },
+  // 页面初始化从后端加载数据
+  created() {
+    this.adminInfo()
+  },
 
-    methods: {
-      adminInfo() {
-        let access_token = JSON.parse(sessionStorage.getItem("userInfo")).token.access_token;
-        this.$axios.get('/api/back/admin/findAll', {
-          headers: { //头部参数
-            'Authorization': 'bearer ' + access_token
-          }
-        }).then(result => {
-          this.AdminData = result.data.result.content
-          console.log(this.AdminData)
-          this.AdminData.forEach(adminData => {
-            adminData.enabled = adminData.enabled = 0 ? "否" : "是"
-            adminData.lastLoginTime = getLocalTime(adminData.lastLoginTime)
-            adminData.createdAt = getLocalTime(adminData.createdAt)
-            adminData.updatedAt = getLocalTime(adminData.updatedAt)
-          })
-        }).catch(err => {
-          console.log(err)
+  methods: {
+    adminInfo() {
+      let access_token = JSON.parse(sessionStorage.getItem("userInfo")).token.access_token;
+      this.$axios.get('/api/back/admin/findAll', {
+        headers: { //头部参数
+          'Authorization': 'bearer ' + access_token
+        }
+      }).then(result => {
+        this.AdminData = result.data.result.content
+        console.log(this.AdminData)
+        this.AdminData.forEach(adminData => {
+          adminData.enabled = adminData.enabled = 0 ? "否" : "是"
+          adminData.lastLoginTime = getLocalTime(adminData.lastLoginTime)
+          adminData.createdAt = getLocalTime(adminData.createdAt)
+          adminData.updatedAt = getLocalTime(adminData.updatedAt)
         })
-      },
-      handleEdit(index, row) {
-        console.log(index, row);
-      },
-      handleDelete(index, row) {
-        console.log(index, row);
-      },
-      handleSelectionChange(val) {
-        this.multipleSelection = val;
-      }
+      }).catch(err => {
+        console.log(err)
+      })
     },
 
 
+    //修改
+    handleEdit(index, row) {
+      // console.log(index, row);
+    },
 
 
+    //冻结
+    handleFreeze(index, row) {
+      console.log(index, row);
+      let access_token = JSON.parse(sessionStorage.getItem("userInfo")).token.access_token;
+      this.$axios.post('/api/back/admin/freeze', {
+        id: row
+      }, {
+        headers: { //头部参数
+          'Authorization': 'bearer ' + access_token
+        }
+      },).then(result => {
+        console.log(result)
+        if (result.data.code === 0) {
+          this.$message({
+            message: result.data.message,
+            type: 'success'
+          });
+        } else {
+          this.$message({
+            message: result.data.message,
+            type: "error"
+          });
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
 
-  }
+
+    //多选
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+      console.log(this.multipleSelection)
+    }
+  },
+
+
+}
 </script>
 
 <style>
