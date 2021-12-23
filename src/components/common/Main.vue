@@ -2,7 +2,6 @@
   <div class="main">
     <el-container>
       <el-main>
-        {{fData}}
       </el-main>
     </el-container>
   </div>

@@ -2,7 +2,9 @@
   <div class="home">
     <Header></Header>
     <Aside></Aside>
-    <Main v-bind:fData="homeData"></Main>
+    <el-main>
+      斜风追逐的影子，和地上的落叶，发生了争执......
+    </el-main>
   </div>
 </template>
 
@@ -22,7 +24,7 @@
 
     data() {
       return {
-        homeData: '斜风追逐的影子，和地上的落叶，发生了争执......',
+
       }
     },
 

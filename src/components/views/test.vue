@@ -48,7 +48,7 @@
 
       getStore(node, resolve) {
         let access_token =
-          "Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Mjg1NTg0MzUsImxvZ2luX3VzZXJfa2V5IjoiNzNlOTFjNTYtMDg4NC00NTgwLWFkZDUtZmNlZjRlNDk0YjdhIn0.2tqlxv6xon7JOAjkyJTxf3YzjJR6BZJJ0S4_JvvLqHNdCA8wFmdsx4m76-hY8jHlL2Rakcx4sHcxFN0ZA-QP1A";
+          "Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Mjg5MTQwMjEsImxvZ2luX3VzZXJfa2V5IjoiNWFiOTgxMDUtODNmNy00OWI3LWI2OWUtMzEzZTI3MTgyNzQ0In0.Y8dUjpNUwuiuO-jYiQYfWINneEtRqdXBJJDZMR_QDJEk3oDdQDO5P_vYh72XKmTZ3mWRCJ8QHfI5-lGab5bCLg";
         this.$axios.get('/api/system/store/findByParentId', {
           headers: { //头部参数
             'Authorization': access_token
@@ -61,7 +61,7 @@
           if (result.data.data.length > 0) {
             let nodes = result.data.data;
             nodes.forEach(item => {
-              if (node.level > 1) {
+              if (node.level > 0) {
                 item.leaf = true
               }
             })
