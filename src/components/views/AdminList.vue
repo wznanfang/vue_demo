@@ -29,7 +29,7 @@
 import Header from "../common/Header.vue";
 import Aside from "../common/Aside.vue";
 import Main from "../common/Main.vue";
-import {getLocalTime} from '../util/Date.js'
+import {getLocalTime} from '../../util/DateUtil.js'
 
 export default {
   name: 'AdminList',
